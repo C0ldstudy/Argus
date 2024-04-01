@@ -19,7 +19,7 @@ pip install torch_scatter torch_sparse torch_cluster torch_spline_conv -f https:
 #### Dataset
 For [LANL Dataset](https://csr.lanl.gov/data/cyber1/), we use `auth.txt.gz`, `redteam.txt.gz` and `flows.txt.gz`.
 
-For [OpTC Dataset](https://github.com/FiveDirections/OpTC-data), we use the "START" events related to the "FLOW" objects (i.e., network flows), and the statistics after filtering following the [paper](https://ieeexplore.ieee.org/abstract/document/9789921).
+For [OpTC Dataset](https://github.com/FiveDirections/OpTC-data), we use the "START" events related to the "FLOW" objects (i.e., network flows), and the statistics after filtering following the [paper](https://ieeexplore.ieee.org/abstract/document/9789921). The dataset is available in the [link](https://drive.google.com/drive/folders/1pTU-ZcyJbzoB1FuvujXe-ynaUy8O-PVD?usp=sharing).
 
 The datasets needs to be preprocessed by the files `./loaders/split_lanl.py` and `split_optc.py` after setting the dataset paths at the beginnig of each file.
 
