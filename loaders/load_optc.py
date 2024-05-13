@@ -15,7 +15,7 @@ import numpy as np
 DATE_OF_EVIL_LANL = 573290 #original 573290
 FILE_DELTA = 10000
 
-# Input where LANL data cleaned with .clean_lanl.py is stored
+# Input the path where OpTC data locates which should be the same as DST in split_optc.py
 LANL_FOLDER = ''
 assert LANL_FOLDER, 'Please fill in the OPTC_FOLDER in loaders/load_optc.py'
 

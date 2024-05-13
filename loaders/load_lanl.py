@@ -16,9 +16,9 @@ import numpy as np
 DATE_OF_EVIL_LANL = 150885
 FILE_DELTA = 10000
 
-# Input where LANL data cleaned with .clean_lanl.py is stored
+# Input the path where LANL data locates which should be the same as DST in split_lanl.py
 LANL_FOLDER = ''
-assert LANL_FOLDER, 'Please fill in the LANL_FOLDER in /lanl_experiments/loaders/load_lanl.py'
+assert LANL_FOLDER, 'Please fill in the LANL_FOLDER in ./loaders/load_lanl.py'
 
 
 TIMES = {
