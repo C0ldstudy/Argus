@@ -16,8 +16,8 @@ DATE_OF_EVIL_LANL = 573290 #original 573290
 FILE_DELTA = 10000
 
 # Input the path where OpTC data locates which should be the same as DST in split_optc.py
-LANL_FOLDER = ''
-assert LANL_FOLDER, 'Please fill in the OPTC_FOLDER in loaders/load_optc.py'
+OPTC_FOLDER = ''
+assert OPTC_FOLDER, 'Please fill in the OPTC_FOLDER in loaders/load_optc.py'
 
 TIMES = {
     '20'      : 573383, # First 20 anoms 1.55%
@@ -53,7 +53,7 @@ def make_data_obj(cur_slice, eis, ys, ew_fn, ea_fn, ews=None, eas=None, use_flow
     if 'node_map' in kwargs:
         nm = kwargs['node_map']
     else:
-        nm = pickle.load(open(LANL_FOLDER+'nmap.pkl', 'rb'))
+        nm = pickle.load(open(OPTC_FOLDER+'nmap.pkl', 'rb'))
 
     cl_cnt = len(nm)
     x = torch.eye(cl_cnt+1)
@@ -135,7 +135,7 @@ def load_partial_lanl(start=140000, end=156659, delta=8640, is_test=False, use_f
     print('start:' + str(start) + ', end:' + str(end))
     cur_slice = int(start - (start % FILE_DELTA))
     start_f = str(cur_slice) + '.txt'
-    in_f = open(LANL_FOLDER + start_f, 'r')
+    in_f = open(OPTC_FOLDER + start_f, 'r')
 
     edges = []
     ews = []
@@ -145,8 +145,8 @@ def load_partial_lanl(start=140000, end=156659, delta=8640, is_test=False, use_f
     eas = []
 
     # Predefined for easier loading so everyone agrees on NIDs
-    node_map = pickle.load(open(LANL_FOLDER+'nmap.pkl', 'rb'))
-    # user_map = pickle.load(open(LANL_FOLDER+'umap.pkl', 'rb'))
+    node_map = pickle.load(open(OPTC_FOLDER+'nmap.pkl', 'rb'))
+    # user_map = pickle.load(open(OPTC_FOLDER+'umap.pkl', 'rb'))
 
 
     # Helper functions (trims the trailing \n)
@@ -200,10 +200,10 @@ def load_partial_lanl(start=140000, end=156659, delta=8640, is_test=False, use_f
 
     #load flows if use_flows == True
     # if use_flows:
-    #     if not os.path.exists(LANL_FOLDER + '/flows'):
+    #     if not os.path.exists(OPTC_FOLDER + '/flows'):
     #         print('flows has not been parsed')
     #     else:
-    #         eas_flows = load_flows(LANL_FOLDER + '/flows/' + start_f, start, end)
+    #         eas_flows = load_flows(OPTC_FOLDER + '/flows/' + start_f, start, end)
 
     while keep_reading:
         while line:
@@ -280,8 +280,8 @@ def load_partial_lanl(start=140000, end=156659, delta=8640, is_test=False, use_f
         in_f.close()
         cur_slice += FILE_DELTA
 
-        if os.path.exists(LANL_FOLDER + str(cur_slice) + '.txt'):
-            in_f = open(LANL_FOLDER + str(cur_slice) + '.txt', 'r')
+        if os.path.exists(OPTC_FOLDER + str(cur_slice) + '.txt'):
+            in_f = open(OPTC_FOLDER + str(cur_slice) + '.txt', 'r')
             line = in_f.readline()
         else:
             keep_reading=False
