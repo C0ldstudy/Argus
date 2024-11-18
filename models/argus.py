@@ -332,8 +332,11 @@ class Argus(nn.Module):
     def forward(self, mask_enum, include_h=False, h0=None, no_grad=False):
         futs = self.encode(mask_enum, no_grad)
         zs = []
-        zs, h0 = self.rnn(futs.to(self.device), h0, include_h=True)
+        for f in futs:
+            z, h0 = self.rnn(f.unsqueeze(0).to(self.device), h0, include_h=True)
+            zs.append(z)
         self.len_from_each = [embed.size(0) for embed in zs]
+        zs = torch.cat(zs, dim=0)
         self.z_dim = zs.size(-1)
         if include_h:
             return zs, h0
