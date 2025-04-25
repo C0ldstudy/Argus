@@ -321,12 +321,13 @@ class DropEdge(nn.Module):
             return ei, ewa
 
 class Argus(nn.Module):
-    def __init__(self, rnn: nn.Module, encoder: nn.Module, device):
+    def __init__(self, rnn: nn.Module, encoder: nn.Module, loss_func, device):
         super(Argus, self).__init__()
         self.gcns = encoder
         self.rnn = rnn
         self.device = device
         self.len_from_each = []
+        self.loss_func = loss_func
 
 
     def forward(self, mask_enum, include_h=False, h0=None, no_grad=False):
@@ -378,7 +379,12 @@ class Argus(nn.Module):
     def loss_fn(self, zs, partition, nratio=1, device=None, encoder_name=None):
         futs = []
         start = 0
-        if encoder_name == 'ARGUS':
+        if self.loss_func == 'default':
+            if encoder_name == 'ARGUS':
+                futs = DetectorEncoder.calc_loss_argus(self.gcns, zs, partition, nratio, device)
+            else:
+                futs = DetectorEncoder.calc_loss(self.gcns, zs, partition, nratio, device)
+        elif self.loss_func == 'ap':
             futs = DetectorEncoder.calc_loss_argus(self.gcns, zs, partition, nratio, device)
         else:
             futs = DetectorEncoder.calc_loss(self.gcns, zs, partition, nratio, device)

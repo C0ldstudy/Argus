@@ -39,6 +39,7 @@ def args():
     ap.add_argument('--nratio', default=1, type=int)
     ap.add_argument('--epochs', default=100, type=int)
     ap.add_argument('--flows', action='store_false')
+    ap.add_argument('--loss', type=str, default="default", choices=['default', 'ap', 'bce'])
     args = ap.parse_args()
     assert args.fpweight >= 0 and args.fpweight <=1, '--fpweight must be a value between 0 and 1 (inclusive)'
     readable = str(args)
