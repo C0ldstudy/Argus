@@ -46,7 +46,7 @@ def classification(args, rnn_args, worker_args, OUTPATH, device):
         }
         rrefs = args.encoder(LOAD_FN, kwargs, *worker_args)
         rnn = args.rnn(*rnn_args)
-        model = Argus(rnn, rrefs, device)
+        model = Argus(rnn, rrefs, args.loss, device)
 
         states = pickle.load(open('./Exps/model_save_'+args.dataset+'.pkl', 'rb'))
         model.load_states(*states['states'])
@@ -94,7 +94,7 @@ def train(rrefs, args, rnn_args, device):
     rnn_constructor = args.rnn
     dataset = args.dataset
     rnn = rnn_constructor(*rnn_args)
-    model = Argus(rnn, rrefs, device)
+    model = Argus(rnn, rrefs, args.loss, device)
     model = model.to(device)
     # opt = torch.optim.Adam(model.parameters(), lr=args.lr)
     opt = SOAP(model.parameters(), lr=args.lr, mode='adam', weight_decay=0.0)
