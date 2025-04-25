@@ -57,6 +57,8 @@ OPTC_FOLDER = ''
 
 ## Experiments
 
+**Note:** Argus models use APLoss by default, which is memory-intensive. If you encounter OOM errors during training, try adding `--loss bce` to use BCE loss instead. This may reduce AP performance.
+
 `python main.py --dataset LANL --delta 1 --lr 0.01`
 ![LANL](./imgs/lanl_result.png)
 
